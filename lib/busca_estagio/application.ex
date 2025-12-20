@@ -15,7 +15,8 @@ defmodule BuscaEstagio.Application do
       # Start a worker by calling: BuscaEstagio.Worker.start_link(arg)
       # {BuscaEstagio.Worker, arg},
       # Start to serve requests, typically the last entry
-      BuscaEstagioWeb.Endpoint
+      BuscaEstagioWeb.Endpoint,
+      Acme.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

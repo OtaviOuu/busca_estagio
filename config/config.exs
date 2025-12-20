@@ -7,6 +7,13 @@
 # General application configuration
 import Config
 
+alias BuscaEstagio.Vagas
+
+config :busca_estagio, Acme.Scheduler,
+  jobs: [
+    {"* * * * *", &Vagas.crawl_usp_eesc_vagas/0}
+  ]
+
 config :busca_estagio,
   ecto_repos: [BuscaEstagio.Repo],
   generators: [timestamp_type: :utc_datetime]
