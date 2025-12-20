@@ -1,0 +1,1 @@
+cada module de uni pega as vagas e da um upsert no banco
