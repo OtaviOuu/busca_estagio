@@ -9,7 +9,7 @@ import Config
 
 alias BuscaEstagio.Vagas
 
-config :busca_estagio, Acme.Scheduler,
+config :busca_estagio, BuscaEstagio.Scheduler,
   jobs: [
     {"* * * * *", &Vagas.crawl_usp_eesc_vagas/0}
   ]

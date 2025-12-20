@@ -16,7 +16,7 @@ defmodule BuscaEstagio.Application do
       # {BuscaEstagio.Worker, arg},
       # Start to serve requests, typically the last entry
       BuscaEstagioWeb.Endpoint,
-      Acme.Scheduler
+      BuscaEstagio.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
