@@ -53,8 +53,7 @@ defmodule BuscaEstagio.Vagas.Usp.GetAllEescVagas do
     descricao =
       html_tree
       |> Floki.find(".tab-content .mt-4")
-      |> Floki.text()
-      |> String.trim()
+      |> Floki.raw_html()
 
     %{
       titulo: titulo,
