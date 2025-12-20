@@ -2,8 +2,10 @@ defmodule BuscaEstagio.Vagas.Usp.GetAllEescVagas do
   require Logger
 
   @base_url "https://eesc.usp.br/estagios"
-
   @all_posts_url "#{@base_url}/posts.php"
+
+  @max_concurrency 20
+  @retry_attempts 2
 
   alias BuscaEstagio.Vagas.CreateEstagio
 
@@ -15,9 +17,9 @@ defmodule BuscaEstagio.Vagas.Usp.GetAllEescVagas do
         |> get_all_vagas_hrefs()
         |> Task.async_stream(&crawl_vaga_page/1,
           ordered: false,
-          max_concurrency: 20,
+          max_concurrency: @max_concurrency,
           timeout: :infinity,
-          retry: 2
+          retry: @retry_attempts
         )
         |> Stream.map(fn {:ok, vaga_attrs} -> vaga_attrs end)
         |> Enum.to_list()
