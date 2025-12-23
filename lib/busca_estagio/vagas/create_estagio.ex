@@ -6,7 +6,7 @@ defmodule BuscaEstagio.Vagas.CreateEstagio do
     attrs
     |> Estagio.changeset()
     |> Repo.insert(
-      on_conflict: {:replace_all_except, [:id, :inserted_at]},
+      on_conflict: :nothing,
       conflict_target: :link
     )
   end
