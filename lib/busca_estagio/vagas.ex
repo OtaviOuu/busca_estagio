@@ -7,4 +7,8 @@ defmodule BuscaEstagio.Vagas do
 
   defdelegate get_estagio_by_id(estagio_id), to: Vagas.GetEstagioById, as: :call
   defdelegate list_estagios(offset \\ 0), to: Vagas.ListEstagios, as: :call
+
+  def search_estagio(search_term) do
+    Vagas.SearchEstagio.call(search_term)
+  end
 end

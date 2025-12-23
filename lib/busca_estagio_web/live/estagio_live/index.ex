@@ -8,6 +8,7 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
       socket
       |> assign(:offset, 0)
       |> assign_estagios()
+      |> assign(:search_estagios, [])
 
     {:ok, socket}
   end
@@ -15,11 +16,10 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
   def render(assigns) do
     ~H"""
     <Layouts.app {assigns}>
-      <.header>
-        Welcome to Busca Estágio!
-      </.header>
-
-      <.super_power_table estagios={@estagios} offset={@offset} />
+      <div class="flex flex-col items-center ">
+        <.search_form search_estagios={@search_estagios} />
+        <.super_power_table estagios={@estagios} offset={@offset} />
+      </div>
     </Layouts.app>
     """
   end
@@ -51,6 +51,42 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
       </table>
     </div>
     """
+  end
+
+  def search_form(assigns) do
+    ~H"""
+    <div class="w-full max-w-2xl mx-4 my-8 relative">
+      <form phx-change="search" class="w-full">
+        <label class="input input-bordered input-lg w-full flex items-center gap-2">
+          <.icon name="hero-magnifying-glass" class="size-5" />
+          <input type="search" name="value" placeholder="Search" />
+        </label>
+      </form>
+
+      <div
+        :if={@search_estagios != []}
+        class="absolute top-full left-0 w-full z-20 mt-1"
+      >
+        <ul class="rounded-box bg-base-100 shadow-md">
+          <li
+            :for={estagio <- @search_estagios}
+            class="px-4 py-2 hover:bg-base-200 cursor-pointer"
+          >
+            {estagio.titulo}
+          </li>
+        </ul>
+      </div>
+    </div>
+    """
+  end
+
+  def handle_event("search", %{"value" => search_term}, socket) do
+    with true <- String.length(search_term) > 2 do
+      estagios = Vagas.search_estagio(search_term)
+      {:noreply, assign(socket, :search_estagios, estagios)}
+    else
+      _ -> {:noreply, assign(socket, :search_estagios, [])}
+    end
   end
 
   defp assign_estagios(socket) do
