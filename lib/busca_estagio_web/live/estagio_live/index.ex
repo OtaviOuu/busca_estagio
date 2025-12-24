@@ -98,7 +98,9 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
 
   def capturado_hoje_badge(assigns) do
     ~H"""
-    <span class="badge badge-success">Capturado Hoje</span>
+    <span class="badge badge-success">
+      Nova
+    </span>
     """
   end
 end
