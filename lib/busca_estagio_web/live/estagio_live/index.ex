@@ -70,9 +70,11 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
         <ul class="rounded-box bg-base-100 shadow-md">
           <li
             :for={estagio <- @search_estagios}
+            phx-click={JS.navigate("/estagios/#{estagio.id}")}
             class="px-4 py-2 hover:bg-base-200 cursor-pointer"
           >
-            {estagio.titulo}
+            {estagio.titulo} -
+            <div class="badge badge-primary">{estagio.universidade}</div>
           </li>
         </ul>
       </div>
