@@ -27,28 +27,32 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
   def super_power_table(assigns) do
     ~H"""
     <div class="mx-4 my-8 card w-full bg-base-100 p-4 shadow-xl">
-      <table class="table w-full">
-        <thead class=" bg-base-100 z-10 sticky top-0">
-          <tr>
-            <th>Titulo</th>
-            <th>Universidade</th>
-            <th>Capturado</th>
-          </tr>
-        </thead>
+      <.async_result :let={estagios} assign={@estagios}>
+        <:loading><span class="loading loading-infinity loading-xl mx-auto"></span></:loading>
+        <:failed :let={_failure}>there was an error loading the organization</:failed>
+        <table class="table w-full">
+          <thead class=" bg-base-100 z-10 sticky top-0">
+            <tr>
+              <th>Titulo</th>
+              <th>Universidade</th>
+              <th>Capturado</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr
-            :for={estagio <- @estagios}
-            phx-click={JS.navigate("/estagios/#{estagio.id}")}
-          >
-            <td>
-              {estagio.titulo} <.capturado_hoje_badge :if={estagio.capturado_hoje?} />
-            </td>
-            <td>{estagio.universidade}</td>
-            <td>{estagio.inserted_at}</td>
-          </tr>
-        </tbody>
-      </table>
+          <tbody>
+            <tr
+              :for={estagio <- estagios}
+              phx-click={JS.navigate("/estagios/#{estagio.id}")}
+            >
+              <td>
+                {estagio.titulo} <.capturado_hoje_badge :if={estagio.capturado_hoje?} />
+              </td>
+              <td>{estagio.universidade}</td>
+              <td>{estagio.inserted_at}</td>
+            </tr>
+          </tbody>
+        </table>
+      </.async_result>
     </div>
     """
   end
@@ -96,6 +100,7 @@ defmodule BuscaEstagioWeb.EstagioLive.Index do
 
     estagios = Vagas.list_estagios(offset)
     assign(socket, :estagios, estagios)
+    assign_async(socket, :estagios, fn -> {:ok, %{estagios: Vagas.list_estagios(offset)}} end)
   end
 
   def capturado_hoje_badge(assigns) do
