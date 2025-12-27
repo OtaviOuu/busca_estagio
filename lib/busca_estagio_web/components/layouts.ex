@@ -40,14 +40,7 @@ defmodule BuscaEstagioWeb.Layouts do
       <.button class="navbar-center">
         <.link navigate={~p"/"} class="btn btn-ghost text-xl">Busca Estágio</.link>
       </.button>
-      <div class="navbar-end">
-        <.button class="btn btn-ghost btn-circle">
-          <div class="indicator">
-            <.icon name="hero-bell" class="size-5" />
-            <span class="badge badge-xs badge-primary indicator-item"></span>
-          </div>
-        </.button>
-      </div>
+      <div class="navbar-end"></div>
     </header>
 
     <main class="px-4 py-20 sm:px-6 lg:px-8">
