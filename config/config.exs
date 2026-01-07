@@ -12,7 +12,8 @@ alias BuscaEstagio.Vagas
 config :busca_estagio, BuscaEstagio.Scheduler,
   jobs: [
     {"* * * * *", &Vagas.crawl_usp_eesc_vagas/0},
-    {"* * * * *", &Vagas.crawl_usp_fearp_vagas/0}
+    {"* * * * *", &Vagas.crawl_usp_fearp_vagas/0},
+    {"* * * * *", &Vagas.crawl_ufmg_icex_vagas/0}
   ]
 
 config :busca_estagio,
