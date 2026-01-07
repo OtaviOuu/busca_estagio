@@ -6,7 +6,9 @@ defmodule BuscaEstagio.Vagas.SearchEstagio do
   def call(search_term) do
     query =
       from e in Estagio,
-        where: ilike(e.titulo, ^"%#{search_term}%") or ilike(e.empresa, ^"%#{search_term}%"),
+        where:
+          ilike(e.titulo, ^"%#{search_term}%") or ilike(e.empresa, ^"%#{search_term}%") or
+            ilike(e.universidade, ^"%#{search_term}%"),
         order_by: [desc: e.inserted_at],
         select: %{
           capturado_hoje?:
