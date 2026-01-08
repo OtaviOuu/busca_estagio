@@ -36,7 +36,20 @@ defmodule BuscaEstagioWeb.Layouts do
   def app(assigns) do
     ~H"""
     <header class="navbar bg-base-100 shadow-sm">
-      <div class="navbar-start"></div>
+      <div class="navbar-start">
+        <ul class="flex flex-row list-none p-0 m-0 justify-center items-center">
+          <li class="mr-2">
+            <a href="https://www.linkedin.com/in/otavioo" target="_blank" rel="noopener noreferrer">
+              <img src={~p"/images/linkedin.svg"} alt="LinkedIn Logo" class="h-6 w-6" />
+            </a>
+          </li>
+          <li class="mr-2">
+            <a href="https://github.com/otaviouu" target="_blank" rel="noopener noreferrer">
+              <img src={~p"/images/github.svg"} alt="GitHub Logo" class="h-6 w-6" />
+            </a>
+          </li>
+        </ul>
+      </div>
       <.button class="navbar-center">
         <.link navigate={~p"/"} class="btn btn-ghost text-xl">Busca Estágio</.link>
       </.button>
